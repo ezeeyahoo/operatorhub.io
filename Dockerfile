@@ -2,6 +2,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-10:1-66
 
 ARG OPERATORS_REPO=https://github.com/operator-framework/community-operators
 ARG OPERATORS_BRANCH=master
+ARG ARCH=amd64
 
 ENV APP_ROOT=/app
 
@@ -38,9 +39,9 @@ RUN chmod -R u+x ${APP_ROOT}/server/bin && \
     chmod -R g=u ${APP_ROOT} /etc/passwd
 
 ENV DOCKERIZE_VERSION v0.6.1
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-${ARCH}-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-${ARCH}-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-${ARCH}-$DOCKERIZE_VERSION.tar.gz
 
 ### Containers should NOT run as root as a good practice
 USER 1001
